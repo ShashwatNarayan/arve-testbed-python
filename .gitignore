@@ -1,0 +1,7 @@
+.scan/
+__pycache__/
+*.pyc
+.venv/
+instance/
+storage/
+*.db

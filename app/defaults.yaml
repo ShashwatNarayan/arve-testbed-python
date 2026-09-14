@@ -1,0 +1,6 @@
+max_upload_mb: 25
+preview_enabled: true
+convert_formats:
+  - pdf
+  - docx
+  - txt
