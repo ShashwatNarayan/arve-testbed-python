@@ -1,0 +1,554 @@
+{
+  "schema_version": "2.0",
+  "repository": "arve-testbed-python",
+  "language": "python",
+  "description": "Ground truth for evaluating ARVE. Every positive finding was planted deliberately; every negative control must produce no finding.",
+  "advisory_data_verified": "2026-10-03",
+  "scanners": {
+    "gitleaks": "ghcr.io/gitleaks/gitleaks:v8.24.2",
+    "osv": "ghcr.io/google/osv-scanner:v1.9.2",
+    "semgrep": "semgrep/semgrep:1.90.0 + ARVE rulepack 2026.09.1",
+    "codeql": "arve-codeql:2.27.1 (security-extended)"
+  },
+  "engine_expectations": {
+    "gitleaks": "run",
+    "osv": "run",
+    "semgrep": "run",
+    "codeql": "run"
+  },
+  "all_credentials_synthetic": true,
+  "expected_counts": {
+    "gitleaks": 6,
+    "gitleaks_history": 7,
+    "osv": 32,
+    "semgrep": 14,
+    "codeql": 8
+  },
+  "expected_counts_note": "Working-tree counts, not plant counts: SEC-02 yields 2 Gitleaks findings, SAST-01 and SAST-02 yield 2 Semgrep findings each, and the 4 DEP plants yield 32 OSV records. gitleaks_history = the 6 HEAD secrets, each reported at the commit that added it, plus SEC-05.",
+  "findings": [
+    {
+      "id": "SAST-01",
+      "kind": "positive",
+      "finding_type": "sast",
+      "expected_engines": [
+        "semgrep",
+        "codeql"
+      ],
+      "rule_ids": {
+        "semgrep": [
+          "arve.python.sql-injection",
+          "arve.python.sql-injection-taint"
+        ],
+        "codeql": "py/sql-injection"
+      },
+      "semgrep_profile": "standard",
+      "cwe": "CWE-89",
+      "file_path": "app/search.py",
+      "line_start": 19,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "f-string SQL from request.args. The -taint rule is extended-profile only."
+    },
+    {
+      "id": "SAST-02",
+      "kind": "positive",
+      "finding_type": "sast",
+      "expected_engines": [
+        "semgrep",
+        "codeql"
+      ],
+      "rule_ids": {
+        "semgrep": [
+          "arve.python.command-injection",
+          "arve.python.command-injection-taint"
+        ],
+        "codeql": "py/command-line-injection"
+      },
+      "semgrep_profile": "standard",
+      "cwe": "CWE-78",
+      "file_path": "app/convert.py",
+      "line_start": 22,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "os.system with a request arg. The -taint rule is extended-profile only."
+    },
+    {
+      "id": "SAST-03",
+      "kind": "positive",
+      "finding_type": "sast",
+      "expected_engines": [
+        "semgrep",
+        "codeql"
+      ],
+      "rule_ids": {
+        "semgrep": "arve.python.path-traversal",
+        "codeql": "py/path-injection"
+      },
+      "semgrep_profile": "standard",
+      "cwe": "CWE-22",
+      "file_path": "app/docs.py",
+      "line_start": 42,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "open(os.path.join(DIR, name)) with name from request.args. Not in the ci profile."
+    },
+    {
+      "id": "SAST-04",
+      "kind": "positive",
+      "finding_type": "sast",
+      "expected_engines": [
+        "semgrep",
+        "codeql"
+      ],
+      "rule_ids": {
+        "semgrep": "arve.python.ssrf",
+        "codeql": "py/full-ssrf"
+      },
+      "semgrep_profile": "standard",
+      "cwe": "CWE-918",
+      "file_path": "app/fetch.py",
+      "line_start": 22,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "requests.get on a URL from the JSON body. Not in the ci profile."
+    },
+    {
+      "id": "SAST-05",
+      "kind": "positive",
+      "finding_type": "sast",
+      "expected_engines": [
+        "semgrep",
+        "codeql"
+      ],
+      "rule_ids": {
+        "semgrep": "arve.python.insecure-tls-verify-false",
+        "codeql": "py/request-without-cert-validation"
+      },
+      "semgrep_profile": "standard",
+      "cwe": "CWE-295",
+      "file_path": "app/fetch.py",
+      "line_start": 12,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "verify=False on a literal URL, so the ssrf rule (pattern-not literal) stays quiet. Kept on its own line, separate from SAST-04."
+    },
+    {
+      "id": "SAST-06",
+      "kind": "positive",
+      "finding_type": "sast",
+      "expected_engines": [
+        "semgrep",
+        "codeql"
+      ],
+      "rule_ids": {
+        "semgrep": "arve.python.unsafe-deserialization-pickle",
+        "codeql": "py/unsafe-deserialization"
+      },
+      "semgrep_profile": "standard",
+      "cwe": "CWE-502",
+      "file_path": "app/settings.py",
+      "line_start": 21,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "pickle.loads(request.get_data())."
+    },
+    {
+      "id": "SAST-07",
+      "kind": "positive",
+      "finding_type": "sast",
+      "expected_engines": [
+        "semgrep"
+      ],
+      "rule_ids": {
+        "semgrep": "arve.python.unsafe-yaml-load"
+      },
+      "semgrep_profile": "standard",
+      "cwe": "CWE-502",
+      "file_path": "app/settings.py",
+      "line_start": 14,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "yaml.load(Loader=yaml.Loader) on a bundled defaults file: no remote source, so CodeQL stays quiet by design."
+    },
+    {
+      "id": "SAST-08",
+      "kind": "positive",
+      "finding_type": "sast",
+      "expected_engines": [
+        "semgrep"
+      ],
+      "rule_ids": {
+        "semgrep": "arve.python.weak-hash-md5"
+      },
+      "semgrep_profile": "standard",
+      "cwe": "CWE-328",
+      "file_path": "app/docs.py",
+      "line_start": 25,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "MD5 file checksum. CodeQL only flags weak hashing of sensitive data, so it is Semgrep-only."
+    },
+    {
+      "id": "SAST-09",
+      "kind": "positive",
+      "finding_type": "sast",
+      "expected_engines": [
+        "semgrep"
+      ],
+      "rule_ids": {
+        "semgrep": "arve.python.weak-hash-sha1"
+      },
+      "semgrep_profile": "standard",
+      "cwe": "CWE-328",
+      "file_path": "app/share.py",
+      "line_start": 19,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "SHA-1 share-link digest over non-sensitive inputs, so it is Semgrep-only."
+    },
+    {
+      "id": "SAST-10",
+      "kind": "positive",
+      "finding_type": "sast",
+      "expected_engines": [
+        "codeql"
+      ],
+      "rule_ids": {
+        "codeql": "py/sql-injection"
+      },
+      "semgrep_profile": null,
+      "cwe": "CWE-89",
+      "file_path": "app/repository.py",
+      "line_start": 25,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "SQL is concatenated in app/queries.py and executed in app/repository.py; the source is in app/search.py. Semgrep OSS taint is intraprocedural, so this is CodeQL-only and tests engine depth."
+    },
+    {
+      "id": "SAST-11",
+      "kind": "positive",
+      "finding_type": "sast",
+      "expected_engines": [
+        "codeql"
+      ],
+      "rule_ids": {
+        "codeql": "py/reflective-xss"
+      },
+      "semgrep_profile": null,
+      "cwe": "CWE-79",
+      "file_path": "app/docs.py",
+      "line_start": 54,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "Preview echoes ?highlight= unescaped. ARVE has no Python XSS Semgrep rule, so this is CodeQL-only."
+    },
+    {
+      "id": "SEC-01",
+      "kind": "positive",
+      "finding_type": "secret",
+      "expected_engines": [
+        "gitleaks",
+        "semgrep"
+      ],
+      "rule_ids": {
+        "gitleaks": "generic-api-key",
+        "semgrep": "arve.generic.hardcoded-jwt-secret"
+      },
+      "semgrep_profile": "standard",
+      "cwe": "CWE-798",
+      "file_path": "app/share.py",
+      "line_start": 12,
+      "line_span": 2,
+      "cross_engine_group": "C-01",
+      "history_only": false,
+      "notes": "JWT signing key bound to a local, then passed to jwt.encode on the next line (line_span 2). Gitleaks reports the assignment and Semgrep the call, via constant propagation. Semgrep does not match a key=\"...\" keyword argument against the rule's positional \"...\" pattern, so the same-line form was tested and dropped."
+    },
+    {
+      "id": "SEC-02",
+      "kind": "positive",
+      "finding_type": "secret",
+      "expected_engines": [
+        "gitleaks",
+        "semgrep"
+      ],
+      "rule_ids": {
+        "gitleaks": [
+          "aws-access-token",
+          "generic-api-key"
+        ],
+        "semgrep": "arve.upstream.python.aws-secret-key"
+      },
+      "semgrep_profile": "standard",
+      "cwe": "CWE-798",
+      "file_path": "app/config.py",
+      "line_start": 10,
+      "line_span": 2,
+      "cross_engine_group": "C-02",
+      "history_only": false,
+      "notes": "AWS key pair on two adjacent lines (line_span 2). Gitleaks reports both lines: aws-access-token on the key ID and generic-api-key on the 40-char secret. Semgrep reports the secret line."
+    },
+    {
+      "id": "SEC-03",
+      "kind": "positive",
+      "finding_type": "secret",
+      "expected_engines": [
+        "semgrep",
+        "gitleaks"
+      ],
+      "rule_ids": {
+        "semgrep": "arve.python.hardcoded-password",
+        "gitleaks": "generic-api-key"
+      },
+      "semgrep_profile": "standard",
+      "cwe": "CWE-259",
+      "file_path": "app/config.py",
+      "line_start": 15,
+      "line_span": 1,
+      "cross_engine_group": "C-03",
+      "history_only": false,
+      "notes": "Hardcoded backup DB password, interpolated into a DSN string. Gitleaks also matches it, as generic-api-key. CodeQL (py/hardcoded-credentials) does not fire: no credential sink. Semgrep rule not in the ci profile."
+    },
+    {
+      "id": "SEC-04",
+      "kind": "positive",
+      "finding_type": "secret",
+      "expected_engines": [
+        "gitleaks"
+      ],
+      "rule_ids": {
+        "gitleaks": "private-key"
+      },
+      "semgrep_profile": null,
+      "cwe": "CWE-321",
+      "file_path": "keys/signing.pem",
+      "line_start": 2,
+      "line_span": 1,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "RSA private key generated with openssl. The Semgrep private-key rule only covers py/js/ts, so a .pem is Gitleaks-only."
+    },
+    {
+      "id": "SEC-05",
+      "kind": "positive",
+      "finding_type": "secret",
+      "expected_engines": [
+        "gitleaks"
+      ],
+      "rule_ids": {
+        "gitleaks": "generic-api-key"
+      },
+      "semgrep_profile": null,
+      "cwe": "CWE-798",
+      "file_path": "app/notify.py",
+      "line_start": 6,
+      "cross_engine_group": null,
+      "history_only": true,
+      "history": {
+        "file_path": "app/notify.py",
+        "line_start": 6,
+        "introduced_in": "Add document conversion with email notification on failure",
+        "removed_in": "Replace email notifications with Slack alerts"
+      },
+      "notes": "SMTP relay token in a module that is added and then deleted two commits later. Only a git-history scan finds it. Built by scripts/seed_history.py, which derives the value from a seed so it never appears at HEAD."
+    },
+    {
+      "id": "SEC-06",
+      "kind": "positive",
+      "finding_type": "secret",
+      "expected_engines": [
+        "gitleaks"
+      ],
+      "rule_ids": {
+        "gitleaks": "slack-webhook-url"
+      },
+      "semgrep_profile": null,
+      "cwe": "CWE-798",
+      "file_path": "docs/runbook.md",
+      "line_start": 18,
+      "line_span": 1,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "Slack incoming webhook in an ops runbook (a non-code location)."
+    },
+    {
+      "id": "DEP-01",
+      "kind": "positive",
+      "finding_type": "dependency",
+      "expected_engines": [
+        "osv"
+      ],
+      "rule_ids": {
+        "osv": [
+          "GHSA-68rp-wp8r-4726",
+          "PYSEC-2026-2151"
+        ]
+      },
+      "semgrep_profile": null,
+      "cwe": null,
+      "file_path": "requirements.txt",
+      "line_start": 6,
+      "cross_engine_group": null,
+      "history_only": false,
+      "package": "Flask",
+      "version": "2.2.5",
+      "ecosystem": "PyPI",
+      "notes": "2 OSV records reported by osv-scanner 1.9.2; each verified in range on osv.dev, 2026-10-03. Flask is planted because Werkzeug 2.2.3 needs Flask 2.2.x, and every 2.2.x release is affected by CVE-2026-27205."
+    },
+    {
+      "id": "DEP-02",
+      "kind": "positive",
+      "finding_type": "dependency",
+      "expected_engines": [
+        "osv"
+      ],
+      "rule_ids": {
+        "osv": [
+          "GHSA-29vq-49wr-vm6x",
+          "GHSA-2g68-c3qc-8985",
+          "GHSA-87hc-h4r5-73f7",
+          "GHSA-f9vj-2wh5-fj8j",
+          "GHSA-hgf8-39gv-g3f2",
+          "GHSA-hrfv-mqp8-q5rw",
+          "GHSA-q34m-jh98-gwm2",
+          "PYSEC-2023-221",
+          "PYSEC-2026-2043",
+          "PYSEC-2026-2044",
+          "PYSEC-2026-2045",
+          "PYSEC-2026-2046",
+          "PYSEC-2026-2320",
+          "PYSEC-2026-3417"
+        ]
+      },
+      "semgrep_profile": null,
+      "cwe": null,
+      "file_path": "requirements.txt",
+      "line_start": 18,
+      "cross_engine_group": null,
+      "history_only": false,
+      "package": "Werkzeug",
+      "version": "2.2.3",
+      "ecosystem": "PyPI",
+      "notes": "14 OSV records reported by osv-scanner 1.9.2; each verified in range on osv.dev, 2026-10-03."
+    },
+    {
+      "id": "DEP-03",
+      "kind": "positive",
+      "finding_type": "dependency",
+      "expected_engines": [
+        "osv"
+      ],
+      "rule_ids": {
+        "osv": [
+          "GHSA-cpwx-vrp4-4pq7",
+          "GHSA-gmj6-6f8f-6699",
+          "GHSA-h5c8-rqwp-cp95",
+          "GHSA-h75v-3vvj-5mfj",
+          "GHSA-q2x7-8rv6-6q7h",
+          "PYSEC-2026-1471",
+          "PYSEC-2026-1472",
+          "PYSEC-2026-1473",
+          "PYSEC-2026-1474",
+          "PYSEC-2026-1475"
+        ]
+      },
+      "semgrep_profile": null,
+      "cwe": null,
+      "file_path": "requirements.txt",
+      "line_start": 10,
+      "cross_engine_group": null,
+      "history_only": false,
+      "package": "Jinja2",
+      "version": "3.1.2",
+      "ecosystem": "PyPI",
+      "notes": "10 OSV records reported by osv-scanner 1.9.2; each verified in range on osv.dev, 2026-10-03."
+    },
+    {
+      "id": "DEP-04",
+      "kind": "positive",
+      "finding_type": "dependency",
+      "expected_engines": [
+        "osv"
+      ],
+      "rule_ids": {
+        "osv": [
+          "GHSA-9hjg-9r4m-mvj7",
+          "GHSA-9wx4-h78v-vm56",
+          "GHSA-gc5v-m9x4-r6x2",
+          "PYSEC-2026-1872",
+          "PYSEC-2026-1873",
+          "PYSEC-2026-2275"
+        ]
+      },
+      "semgrep_profile": null,
+      "cwe": null,
+      "file_path": "requirements.txt",
+      "line_start": 15,
+      "cross_engine_group": null,
+      "history_only": false,
+      "package": "requests",
+      "version": "2.31.0",
+      "ecosystem": "PyPI",
+      "notes": "6 OSV records reported by osv-scanner 1.9.2; each verified in range on osv.dev, 2026-10-03."
+    },
+    {
+      "id": "SAFE-01",
+      "kind": "negative",
+      "finding_type": "control",
+      "expected_engines": [],
+      "rule_ids": {},
+      "semgrep_profile": null,
+      "cwe": null,
+      "file_path": "app/repository.py",
+      "line_start": 7,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "Parameterized query keyed by the <int:doc_id> route arg."
+    },
+    {
+      "id": "SAFE-02",
+      "kind": "negative",
+      "finding_type": "control",
+      "expected_engines": [],
+      "rule_ids": {},
+      "semgrep_profile": null,
+      "cwe": null,
+      "file_path": "app/convert.py",
+      "line_start": 24,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "subprocess.run with list args and no shell."
+    },
+    {
+      "id": "SAFE-03",
+      "kind": "negative",
+      "finding_type": "control",
+      "expected_engines": [],
+      "rule_ids": {},
+      "semgrep_profile": null,
+      "cwe": null,
+      "file_path": "app/settings.py",
+      "line_start": 24,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "yaml.safe_load on the request body."
+    },
+    {
+      "id": "SAFE-04",
+      "kind": "negative",
+      "finding_type": "control",
+      "expected_engines": [],
+      "rule_ids": {},
+      "semgrep_profile": null,
+      "cwe": null,
+      "file_path": "app/docs.py",
+      "line_start": 27,
+      "cross_engine_group": null,
+      "history_only": false,
+      "notes": "SHA-256 checksum."
+    }
+  ],
+  "notes": [
+    "Known ARVE false positive (Semgrep, extended profile): arve.python.sql-injection-taint treats the whole $CURSOR.execute(...) call as the sink, so a parameterized query whose bound value comes from flask.request.args.get(...) is reported. SAFE-01 avoids this by keying on a route arg; no control asserts the false positive.",
+    "Known ARVE false positive (Semgrep, standard profile): arve.python.path-traversal matches any open(os.path.join(...)), including server-generated names such as a uuid. The upload handler binds the path to a variable first."
+  ]
+}

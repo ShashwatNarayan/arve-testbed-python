@@ -1,0 +1,1109 @@
+{
+ "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/schemas/sarif-schema-2.1.0.json",
+ "runs": [
+  {
+   "invocations": [
+    {
+     "executionSuccessful": true,
+     "toolExecutionNotifications": [
+      {
+       "descriptor": {
+        "id": "Lexical error"
+       },
+       "level": "warning",
+       "message": {
+        "text": "Lexical error at line EXPECTED_FINDINGS.md:57:\n unrecognized symbol: ?"
+       }
+      },
+      {
+       "descriptor": {
+        "id": "Syntax error"
+       },
+       "level": "warning",
+       "message": {
+        "text": "Syntax error at line README.md:3:\n `>` was unexpected"
+       }
+      }
+     ]
+    }
+   ],
+   "results": [
+    {
+     "fingerprints": {
+      "matchBasedId/v1": "b03c8e182cfeec06aaf2099f83a3cc833a666610e46d148cae0819043d9a0f8b618e21bd9e07791be43d946ce61e79241313b317ad4356e592cc26163d411ce6_0"
+     },
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "app/config.py",
+         "uriBaseId": "%SRCROOT%"
+        },
+        "region": {
+         "endColumn": 67,
+         "endLine": 11,
+         "startColumn": 1,
+         "startLine": 11
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Hardcoded AWS secret access key detected."
+     },
+     "properties": {},
+     "ruleId": "rules.upstream.arve.upstream.python.aws-secret-key"
+    },
+    {
+     "fingerprints": {
+      "matchBasedId/v1": "3550d92038ee4dc43ef796005cad193e36c26a9327d86191c4f6c66cfbd4e8b8a38ee6beb484d15ce5a4ee5e104fd8016f4cc83d72663b7a2a51b5ed51d0d3b8_0"
+     },
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "app/config.py",
+         "uriBaseId": "%SRCROOT%"
+        },
+        "region": {
+         "endColumn": 48,
+         "endLine": 15,
+         "startColumn": 1,
+         "startLine": 15
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Potential hardcoded password assigned to variable."
+     },
+     "properties": {},
+     "ruleId": "rules.arve.python.hardcoded-password"
+    },
+    {
+     "fingerprints": {
+      "matchBasedId/v1": "2aa6aa843b51d41781040a9bae80befb6441c7ad5fe7bcf757ab845ccfec71155ea73550542cbdc5626fc680066ef1e542efd5ad40611d28c810b11b31218f29_0"
+     },
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "app/convert.py",
+         "uriBaseId": "%SRCROOT%"
+        },
+        "region": {
+         "endColumn": 90,
+         "endLine": 22,
+         "startColumn": 14,
+         "startLine": 22
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Untrusted input passed to shell interpreter or os.system can lead to arbitrary command execution."
+     },
+     "properties": {},
+     "ruleId": "rules.arve.python.command-injection"
+    },
+    {
+     "fingerprints": {
+      "matchBasedId/v1": "9e79a9fba4683b80ac0ad07a5bd079b5b998484d32545ecf590b0229ac7e0c463d4628c386b6a7aad446cfcb588fdf60f5bce8d31f419d117e62701396380b4c_0"
+     },
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "app/convert.py",
+         "uriBaseId": "%SRCROOT%"
+        },
+        "region": {
+         "endColumn": 90,
+         "endLine": 22,
+         "startColumn": 14,
+         "startLine": 22
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Untrusted input flows into operating system command execution."
+     },
+     "properties": {},
+     "ruleId": "rules.arve.taint.arve.python.command-injection-taint"
+    },
+    {
+     "fingerprints": {
+      "matchBasedId/v1": "9a461b698aeba5f901cca553f72aa085e9aa4a1f793ca96caaed7575f85afdef740c21369743bf75315d13d4ebfacb21d3d14be487b16acf97d44b44c1e66b84_0"
+     },
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "app/docs.py",
+         "uriBaseId": "%SRCROOT%"
+        },
+        "region": {
+         "endColumn": 28,
+         "endLine": 25,
+         "startColumn": 11,
+         "startLine": 25
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "MD5 is a cryptographically broken hashing algorithm vulnerable to collision attacks."
+     },
+     "properties": {},
+     "ruleId": "rules.arve.python.weak-hash-md5"
+    },
+    {
+     "fingerprints": {
+      "matchBasedId/v1": "99a16ee3ed4c4d7a0112b01eae6afc8e52fd78d69a5786986ec7b011ce6088551a45b3ae91e33eebfc51d7831319064481cbd18ec938b4ddfec5cc3321cca89a_0"
+     },
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "app/docs.py",
+         "uriBaseId": "%SRCROOT%"
+        },
+        "region": {
+         "endColumn": 75,
+         "endLine": 42,
+         "startColumn": 10,
+         "startLine": 42
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Constructing file paths with user input without validation can allow arbitrary file access outside the working directory."
+     },
+     "properties": {},
+     "ruleId": "rules.arve.python.path-traversal"
+    },
+    {
+     "fingerprints": {
+      "matchBasedId/v1": "b52d81cc4f1725f71536b1c214db0b3306b498b166c76f55e9df896918b5c3486bc34b4c4fc03f69b0d3ff220acbf0e917c9079d0cbc0bf6bbd3aea45beed323_0"
+     },
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "app/fetch.py",
+         "uriBaseId": "%SRCROOT%"
+        },
+        "region": {
+         "endColumn": 92,
+         "endLine": 12,
+         "startColumn": 12,
+         "startLine": 12
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Disabling TLS certificate verification (verify=False) exposes the application to machine-in-the-middle attacks."
+     },
+     "properties": {},
+     "ruleId": "rules.arve.python.insecure-tls-verify-false"
+    },
+    {
+     "fingerprints": {
+      "matchBasedId/v1": "1f4e88aea7cd875a79517f23e29eaee140fd144813dd080cc330e11d42c5eeb4ae82bd849990d1226b0637c41688d1e1e393677b2a6033f203b92c9460878858_0"
+     },
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "app/fetch.py",
+         "uriBaseId": "%SRCROOT%"
+        },
+        "region": {
+         "endColumn": 41,
+         "endLine": 22,
+         "startColumn": 12,
+         "startLine": 22
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Request made to user-controlled URL without destination validation can result in SSRF."
+     },
+     "properties": {},
+     "ruleId": "rules.arve.python.ssrf"
+    },
+    {
+     "fingerprints": {
+      "matchBasedId/v1": "cc33378c4e6895b7518a458dcbeb672bf9e35226131aca6f7adb1b3580224b7c57becfb193939d38d270352c737124253bc4fd4d00978fe5fda4f4199af199a4_0"
+     },
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "app/search.py",
+         "uriBaseId": "%SRCROOT%"
+        },
+        "region": {
+         "endColumn": 81,
+         "endLine": 19,
+         "startColumn": 9,
+         "startLine": 19
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Detected SQL query formatted with dynamic user input. Use parameterized queries instead."
+     },
+     "properties": {},
+     "ruleId": "rules.arve.python.sql-injection"
+    },
+    {
+     "fingerprints": {
+      "matchBasedId/v1": "e917d4797a33ad951903bfce9d798af10d77e564bee72028911366fd7d6d15732e6c78063c655cf2f61df4440dde8b3c2077e33417bcfe7491f3c399c0e29d42_0"
+     },
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "app/search.py",
+         "uriBaseId": "%SRCROOT%"
+        },
+        "region": {
+         "endColumn": 81,
+         "endLine": 19,
+         "startColumn": 9,
+         "startLine": 19
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Untrusted input flows directly into database query execution without parameterization."
+     },
+     "properties": {},
+     "ruleId": "rules.arve.taint.arve.python.sql-injection-taint"
+    },
+    {
+     "fingerprints": {
+      "matchBasedId/v1": "b99fc2a7b948995e77d0cd11115407ac363c0ed46966af97f894137e68c2c2456e0f1debd89831746b18543f94f9b34f37a94be1a60a5e9a7d1ff1eb0089159b_0"
+     },
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "app/settings.py",
+         "uriBaseId": "%SRCROOT%"
+        },
+        "region": {
+         "endColumn": 49,
+         "endLine": 14,
+         "startColumn": 16,
+         "startLine": 14
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "yaml.load without specifying SafeLoader allows arbitrary code execution during parsing."
+     },
+     "properties": {},
+     "ruleId": "rules.arve.python.unsafe-yaml-load"
+    },
+    {
+     "fingerprints": {
+      "matchBasedId/v1": "9acf8672fee72362c9de3ffd3cf8a70666b06c562ba05c0fa8d7a99ccc963c9867fa977297fb4a2b369a7fed30b58c3ef4cb5db89d2afee3ea9c6c3fc6cf0753_0"
+     },
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "app/settings.py",
+         "uriBaseId": "%SRCROOT%"
+        },
+        "region": {
+         "endColumn": 50,
+         "endLine": 21,
+         "startColumn": 18,
+         "startLine": 21
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Deserializing untrusted data with pickle can execute arbitrary code."
+     },
+     "properties": {},
+     "ruleId": "rules.arve.python.unsafe-deserialization-pickle"
+    },
+    {
+     "fingerprints": {
+      "matchBasedId/v1": "a0d3e80ff7e47f69d04c1c27ef4d2999152a4a96d239d115a1b68479324d8218e05538398b9c17e00bf19a34b2092d90b9446370bd12dda6669f715d4aba8ec4_0"
+     },
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "app/share.py",
+         "uriBaseId": "%SRCROOT%"
+        },
+        "region": {
+         "endColumn": 62,
+         "endLine": 13,
+         "startColumn": 12,
+         "startLine": 13
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Hardcoded secret key used for signing JWT tokens or sessions."
+     },
+     "properties": {},
+     "ruleId": "rules.arve.generic.hardcoded-jwt-secret"
+    },
+    {
+     "fingerprints": {
+      "matchBasedId/v1": "95656c2c835ce991582c2dff1d6888c82139aa63c5d31c8c2524ec3871bd5e81a2f58869076d8dfe22abb28517955c15f4aa5adde10e895143ecbf631747f5a1_0"
+     },
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "app/share.py",
+         "uriBaseId": "%SRCROOT%"
+        },
+        "region": {
+         "endColumn": 57,
+         "endLine": 19,
+         "startColumn": 14,
+         "startLine": 19
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "SHA-1 is a cryptographically weak hashing algorithm vulnerable to collision attacks."
+     },
+     "properties": {},
+     "ruleId": "rules.arve.python.weak-hash-sha1"
+    }
+   ],
+   "tool": {
+    "driver": {
+     "name": "Semgrep OSS",
+     "rules": [
+      {
+       "defaultConfiguration": {
+        "level": "warning"
+       },
+       "fullDescription": {
+        "text": "InsecureSkipVerify explicitly set to true disables TLS certificate validation and allows MitM attacks."
+       },
+       "help": {
+        "markdown": "InsecureSkipVerify explicitly set to true disables TLS certificate validation and allows MitM attacks.",
+        "text": "InsecureSkipVerify explicitly set to true disables TLS certificate validation and allows MitM attacks."
+       },
+       "id": "rules.arve.go.insecure-tls-verify-false",
+       "name": "rules.arve.go.insecure-tls-verify-false",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-295: Improper Certificate Validation",
+         "HIGH CONFIDENCE",
+         "OWASP-A07:2021 - Identification and Authentication Failures",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.go.insecure-tls-verify-false"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Untrusted input flows into operating system command execution."
+       },
+       "help": {
+        "markdown": "Untrusted input flows into operating system command execution.",
+        "text": "Untrusted input flows into operating system command execution."
+       },
+       "id": "rules.arve.taint.arve.python.command-injection-taint",
+       "name": "rules.arve.taint.arve.python.command-injection-taint",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+         "HIGH CONFIDENCE",
+         "OWASP-A03:2021 - Injection",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.taint.arve.python.command-injection-taint"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Hardcoded AWS secret access key detected."
+       },
+       "help": {
+        "markdown": "Hardcoded AWS secret access key detected.",
+        "text": "Hardcoded AWS secret access key detected."
+       },
+       "id": "rules.upstream.arve.upstream.python.aws-secret-key",
+       "name": "rules.upstream.arve.upstream.python.aws-secret-key",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-798: Use of Hard-coded Credentials",
+         "HIGH CONFIDENCE",
+         "OWASP-A07:2021 - Identification and Authentication Failures",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.upstream.arve.upstream.python.aws-secret-key"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Constructing file paths with user input without validation can allow arbitrary file access outside the working directory."
+       },
+       "help": {
+        "markdown": "Constructing file paths with user input without validation can allow arbitrary file access outside the working directory.",
+        "text": "Constructing file paths with user input without validation can allow arbitrary file access outside the working directory."
+       },
+       "id": "rules.arve.python.path-traversal",
+       "name": "rules.arve.python.path-traversal",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+         "MEDIUM CONFIDENCE",
+         "OWASP-A01:2021 - Broken Access Control",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.python.path-traversal"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Untrusted input flows directly into database query execution without parameterization."
+       },
+       "help": {
+        "markdown": "Untrusted input flows directly into database query execution without parameterization.",
+        "text": "Untrusted input flows directly into database query execution without parameterization."
+       },
+       "id": "rules.arve.taint.arve.python.sql-injection-taint",
+       "name": "rules.arve.taint.arve.python.sql-injection-taint",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+         "HIGH CONFIDENCE",
+         "OWASP-A03:2021 - Injection",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.taint.arve.python.sql-injection-taint"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "warning"
+       },
+       "fullDescription": {
+        "text": "SHA-1 is a cryptographically weak hashing algorithm vulnerable to collision attacks."
+       },
+       "help": {
+        "markdown": "SHA-1 is a cryptographically weak hashing algorithm vulnerable to collision attacks.",
+        "text": "SHA-1 is a cryptographically weak hashing algorithm vulnerable to collision attacks."
+       },
+       "id": "rules.arve.python.weak-hash-sha1",
+       "name": "rules.arve.python.weak-hash-sha1",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-328: Use of Weak Hash",
+         "HIGH CONFIDENCE",
+         "OWASP-A02:2021 - Cryptographic Failures",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.python.weak-hash-sha1"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "warning"
+       },
+       "fullDescription": {
+        "text": "Request made to user-controlled URL without destination validation can result in SSRF."
+       },
+       "help": {
+        "markdown": "Request made to user-controlled URL without destination validation can result in SSRF.",
+        "text": "Request made to user-controlled URL without destination validation can result in SSRF."
+       },
+       "id": "rules.arve.python.ssrf",
+       "name": "rules.arve.python.ssrf",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-918: Server-Side Request Forgery (SSRF)",
+         "MEDIUM CONFIDENCE",
+         "OWASP-A10:2021 - Server-Side Request Forgery (SSRF)",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.python.ssrf"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Unsanitized path passed to file inclusion (include, require) or file read operations permits path traversal."
+       },
+       "help": {
+        "markdown": "Unsanitized path passed to file inclusion (include, require) or file read operations permits path traversal.",
+        "text": "Unsanitized path passed to file inclusion (include, require) or file read operations permits path traversal."
+       },
+       "id": "rules.arve.php.path-traversal",
+       "name": "rules.arve.php.path-traversal",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+         "MEDIUM CONFIDENCE",
+         "OWASP-A01:2021 - Broken Access Control",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.php.path-traversal"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Hardcoded private encryption key block detected."
+       },
+       "help": {
+        "markdown": "Hardcoded private encryption key block detected.",
+        "text": "Hardcoded private encryption key block detected."
+       },
+       "id": "rules.upstream.arve.upstream.generic.private-key",
+       "name": "rules.upstream.arve.upstream.generic.private-key",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-798: Use of Hard-coded Credentials",
+         "HIGH CONFIDENCE",
+         "OWASP-A07:2021 - Identification and Authentication Failures",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.upstream.arve.upstream.generic.private-key"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Untrusted input passed to child_process.exec can allow arbitrary command execution."
+       },
+       "help": {
+        "markdown": "Untrusted input passed to child_process.exec can allow arbitrary command execution.",
+        "text": "Untrusted input passed to child_process.exec can allow arbitrary command execution."
+       },
+       "id": "rules.arve.javascript.command-injection",
+       "name": "rules.arve.javascript.command-injection",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+         "HIGH CONFIDENCE",
+         "OWASP-A03:2021 - Injection",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.javascript.command-injection"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Dynamic code execution via eval() or Function() can allow arbitrary remote code execution."
+       },
+       "help": {
+        "markdown": "Dynamic code execution via eval() or Function() can allow arbitrary remote code execution.",
+        "text": "Dynamic code execution via eval() or Function() can allow arbitrary remote code execution."
+       },
+       "id": "rules.upstream.arve.upstream.javascript.eval-injection",
+       "name": "rules.upstream.arve.upstream.javascript.eval-injection",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+         "HIGH CONFIDENCE",
+         "OWASP-A03:2021 - Injection",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.upstream.arve.upstream.javascript.eval-injection"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Untrusted input passed to shell interpreter ('sh', 'bash') can allow arbitrary command execution."
+       },
+       "help": {
+        "markdown": "Untrusted input passed to shell interpreter ('sh', 'bash') can allow arbitrary command execution.",
+        "text": "Untrusted input passed to shell interpreter ('sh', 'bash') can allow arbitrary command execution."
+       },
+       "id": "rules.arve.go.command-injection",
+       "name": "rules.arve.go.command-injection",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+         "HIGH CONFIDENCE",
+         "OWASP-A03:2021 - Injection",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.go.command-injection"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Detected database query constructed with dynamic string formatting or concatenation. Use parameterized queries with parameter placeholders ('?', '$1')."
+       },
+       "help": {
+        "markdown": "Detected database query constructed with dynamic string formatting or concatenation. Use parameterized queries with parameter placeholders ('?', '$1').",
+        "text": "Detected database query constructed with dynamic string formatting or concatenation. Use parameterized queries with parameter placeholders ('?', '$1')."
+       },
+       "id": "rules.arve.go.sql-injection",
+       "name": "rules.arve.go.sql-injection",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+         "HIGH CONFIDENCE",
+         "OWASP-A03:2021 - Injection",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.go.sql-injection"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Untrusted input passed to shell interpreter or os.system can lead to arbitrary command execution."
+       },
+       "help": {
+        "markdown": "Untrusted input passed to shell interpreter or os.system can lead to arbitrary command execution.",
+        "text": "Untrusted input passed to shell interpreter or os.system can lead to arbitrary command execution."
+       },
+       "id": "rules.arve.python.command-injection",
+       "name": "rules.arve.python.command-injection",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+         "HIGH CONFIDENCE",
+         "OWASP-A03:2021 - Injection",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.python.command-injection"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Unsanitized path passed to filesystem operations may allow path traversal outside the intended directory."
+       },
+       "help": {
+        "markdown": "Unsanitized path passed to filesystem operations may allow path traversal outside the intended directory.",
+        "text": "Unsanitized path passed to filesystem operations may allow path traversal outside the intended directory."
+       },
+       "id": "rules.arve.go.path-traversal",
+       "name": "rules.arve.go.path-traversal",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+         "MEDIUM CONFIDENCE",
+         "OWASP-A01:2021 - Broken Access Control",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.go.path-traversal"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "yaml.load without specifying SafeLoader allows arbitrary code execution during parsing."
+       },
+       "help": {
+        "markdown": "yaml.load without specifying SafeLoader allows arbitrary code execution during parsing.",
+        "text": "yaml.load without specifying SafeLoader allows arbitrary code execution during parsing."
+       },
+       "id": "rules.arve.python.unsafe-yaml-load",
+       "name": "rules.arve.python.unsafe-yaml-load",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-502: Deserialization of Untrusted Data",
+         "HIGH CONFIDENCE",
+         "OWASP-A08:2021 - Software and Data Integrity Failures",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.python.unsafe-yaml-load"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Disabling TLS certificate verification (verify=False) exposes the application to machine-in-the-middle attacks."
+       },
+       "help": {
+        "markdown": "Disabling TLS certificate verification (verify=False) exposes the application to machine-in-the-middle attacks.",
+        "text": "Disabling TLS certificate verification (verify=False) exposes the application to machine-in-the-middle attacks."
+       },
+       "id": "rules.arve.python.insecure-tls-verify-false",
+       "name": "rules.arve.python.insecure-tls-verify-false",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-295: Improper Certificate Validation",
+         "HIGH CONFIDENCE",
+         "OWASP-A02:2021 - Cryptographic Failures",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.python.insecure-tls-verify-false"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Detected SQL query formatted with dynamic user input. Use parameterized queries instead."
+       },
+       "help": {
+        "markdown": "Detected SQL query formatted with dynamic user input. Use parameterized queries instead.",
+        "text": "Detected SQL query formatted with dynamic user input. Use parameterized queries instead."
+       },
+       "id": "rules.arve.python.sql-injection",
+       "name": "rules.arve.python.sql-injection",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+         "HIGH CONFIDENCE",
+         "OWASP-A03:2021 - Injection",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.python.sql-injection"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "warning"
+       },
+       "fullDescription": {
+        "text": "MD5 is a cryptographically broken hashing algorithm vulnerable to collision attacks."
+       },
+       "help": {
+        "markdown": "MD5 is a cryptographically broken hashing algorithm vulnerable to collision attacks.",
+        "text": "MD5 is a cryptographically broken hashing algorithm vulnerable to collision attacks."
+       },
+       "id": "rules.arve.python.weak-hash-md5",
+       "name": "rules.arve.python.weak-hash-md5",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+         "HIGH CONFIDENCE",
+         "OWASP-A02:2021 - Cryptographic Failures",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.python.weak-hash-md5"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Directly rendering untrusted input to HTTP response or innerHTML creates a Cross-Site Scripting (XSS) vulnerability."
+       },
+       "help": {
+        "markdown": "Directly rendering untrusted input to HTTP response or innerHTML creates a Cross-Site Scripting (XSS) vulnerability.",
+        "text": "Directly rendering untrusted input to HTTP response or innerHTML creates a Cross-Site Scripting (XSS) vulnerability."
+       },
+       "id": "rules.arve.javascript.xss",
+       "name": "rules.arve.javascript.xss",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+         "HIGH CONFIDENCE",
+         "OWASP-A03:2021 - Injection",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.javascript.xss"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "warning"
+       },
+       "fullDescription": {
+        "text": "Potential hardcoded password assigned to variable."
+       },
+       "help": {
+        "markdown": "Potential hardcoded password assigned to variable.",
+        "text": "Potential hardcoded password assigned to variable."
+       },
+       "id": "rules.arve.python.hardcoded-password",
+       "name": "rules.arve.python.hardcoded-password",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-259: Use of Hard-coded Password",
+         "MEDIUM CONFIDENCE",
+         "OWASP-A07:2021 - Identification and Authentication Failures",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.python.hardcoded-password"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Deserializing untrusted data with pickle can execute arbitrary code."
+       },
+       "help": {
+        "markdown": "Deserializing untrusted data with pickle can execute arbitrary code.",
+        "text": "Deserializing untrusted data with pickle can execute arbitrary code."
+       },
+       "id": "rules.arve.python.unsafe-deserialization-pickle",
+       "name": "rules.arve.python.unsafe-deserialization-pickle",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-502: Deserialization of Untrusted Data",
+         "HIGH CONFIDENCE",
+         "OWASP-A08:2021 - Software and Data Integrity Failures",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.python.unsafe-deserialization-pickle"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Detected database query formatted with dynamic user input. Use parameterized queries instead."
+       },
+       "help": {
+        "markdown": "Detected database query formatted with dynamic user input. Use parameterized queries instead.",
+        "text": "Detected database query formatted with dynamic user input. Use parameterized queries instead."
+       },
+       "id": "rules.arve.javascript.sql-injection",
+       "name": "rules.arve.javascript.sql-injection",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+         "HIGH CONFIDENCE",
+         "OWASP-A03:2021 - Injection",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.javascript.sql-injection"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Using eval() executes arbitrary PHP code dynamically, creating critical remote code execution risks."
+       },
+       "help": {
+        "markdown": "Using eval() executes arbitrary PHP code dynamically, creating critical remote code execution risks.",
+        "text": "Using eval() executes arbitrary PHP code dynamically, creating critical remote code execution risks."
+       },
+       "id": "rules.arve.php.eval-injection",
+       "name": "rules.arve.php.eval-injection",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+         "HIGH CONFIDENCE",
+         "OWASP-A03:2021 - Injection",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.php.eval-injection"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Untrusted input passed to system, exec, or shell_exec functions can allow arbitrary command execution."
+       },
+       "help": {
+        "markdown": "Untrusted input passed to system, exec, or shell_exec functions can allow arbitrary command execution.",
+        "text": "Untrusted input passed to system, exec, or shell_exec functions can allow arbitrary command execution."
+       },
+       "id": "rules.arve.php.command-injection",
+       "name": "rules.arve.php.command-injection",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+         "HIGH CONFIDENCE",
+         "OWASP-A03:2021 - Injection",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.php.command-injection"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Hardcoded secret key used for signing JWT tokens or sessions."
+       },
+       "help": {
+        "markdown": "Hardcoded secret key used for signing JWT tokens or sessions.",
+        "text": "Hardcoded secret key used for signing JWT tokens or sessions."
+       },
+       "id": "rules.arve.generic.hardcoded-jwt-secret",
+       "name": "rules.arve.generic.hardcoded-jwt-secret",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-798: Use of Hard-coded Credentials",
+         "HIGH CONFIDENCE",
+         "OWASP-A07:2021 - Identification and Authentication Failures",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.generic.hardcoded-jwt-secret"
+       }
+      },
+      {
+       "defaultConfiguration": {
+        "level": "error"
+       },
+       "fullDescription": {
+        "text": "Detected database query formatted with dynamic user input or string concatenation. Use PDO prepared statements with parameter binding."
+       },
+       "help": {
+        "markdown": "Detected database query formatted with dynamic user input or string concatenation. Use PDO prepared statements with parameter binding.",
+        "text": "Detected database query formatted with dynamic user input or string concatenation. Use PDO prepared statements with parameter binding."
+       },
+       "id": "rules.arve.php.sql-injection",
+       "name": "rules.arve.php.sql-injection",
+       "properties": {
+        "precision": "very-high",
+        "tags": [
+         "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+         "HIGH CONFIDENCE",
+         "OWASP-A03:2021 - Injection",
+         "security"
+        ]
+       },
+       "shortDescription": {
+        "text": "Semgrep Finding: rules.arve.php.sql-injection"
+       }
+      }
+     ],
+     "semanticVersion": "1.90.0"
+    }
+   }
+  }
+ ],
+ "version": "2.1.0"
+}
