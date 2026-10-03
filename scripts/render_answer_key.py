@@ -6,6 +6,8 @@ expected-findings.json is the only hand-edited answer key. This script:
 1. Finds every `TESTBED <ID>` marker in the tracked (and untracked, non-ignored)
    files. The comment syntax does not matter (`#`, `//`, `<!--`), so the script is
    language-neutral. The plant is the first non-blank line after the marker.
+   Entries in files that cannot hold comments (JSON lockfiles) use a `locator`
+   string instead: the first line of `file_path` containing it.
 2. Writes that line into `line_start` (and `file_path`) for each entry.
    Entries with `history_only: true` are skipped; their location lives in the
    entry's `history` block and is maintained by seed_history.py.
@@ -126,10 +128,19 @@ def main():
     for entry in key["findings"]:
         if entry.get("history_only"):
             continue
-        if entry["id"] not in markers:
-            problems.append(f"{entry['id']}: no marker found")
-            continue
-        entry["file_path"], entry["line_start"] = markers[entry["id"]]
+        if entry["id"] in markers:
+            entry["file_path"], entry["line_start"] = markers[entry["id"]]
+        elif entry.get("locator"):
+            # Files that cannot hold a comment (JSON lockfiles): the first line containing
+            # the locator string is the plant.
+            lines = (REPO / entry["file_path"]).read_text(encoding="utf-8").splitlines()
+            hit = next((i for i, line in enumerate(lines, 1) if entry["locator"] in line), None)
+            if hit is None:
+                problems.append(f"{entry['id']}: locator {entry['locator']!r} not found in {entry['file_path']}")
+                continue
+            entry["line_start"] = hit
+        else:
+            problems.append(f"{entry['id']}: no marker or locator found")
     known = {e["id"] for e in key["findings"]}
     problems += [f"{m}: marker with no answer-key entry" for m in markers if m not in known]
     if problems:

@@ -44,7 +44,10 @@ the file's own comment syntax:
     // TESTBED SAST-03         (JS/TS/Java/PHP)
     <!-- TESTBED SEC-06 -->    (Markdown)
 
-The plant is the first non-blank line after the marker. Never describe the flaw in
+The plant is the first non-blank line after the marker. Files that cannot hold a
+comment (JSON: `package.json`, `package-lock.json`, `composer.lock`) take no marker;
+their entry carries a `locator` string instead, e.g. `"node_modules/qs"`, and
+the first line of `file_path` containing it is the plant. Never describe the flaw in
 the marker: ARVE's LLM layer reads the surrounding code. Do not obfuscate either.
 Difficulty comes from location, cross-file flow and cross-engine overlap.
 
@@ -70,6 +73,7 @@ Each finding:
 | `semgrep_profile` | lowest ARVE profile with the rule (`ci` ⊂ `standard` ⊂ `extended`) |
 | `cwe` | primary CWE |
 | `file_path`, `line_start` | generated from the marker |
+| `locator` | for files with no comment syntax: the substring that identifies the plant line |
 | `line_span` | lines covered from `line_start` (default 1), e.g. a key pair on 2 lines |
 | `cross_engine_group` | `C-NN` when two engines report the same secret location (tests ARVE correlation/dedup) |
 | `history_only`, `history` | for secrets that exist only in Git history: `{file_path, line_start, introduced_in, removed_in}` |
@@ -114,5 +118,10 @@ copies to `baselines/`.
 - CodeQL (Python) does not treat the return value of a Flask Blueprint `.get()` /
   `.post()` view as an HTTP response. Return an explicit `Response(...)` for XSS
   plants.
+- ARVE rulepack gap (JS/TS): `arve.javascript.sql-injection` only matches
+  `$DB.query(...)`. better-sqlite3 has no `.query` (it uses `prepare`/`exec`), so
+  SQL injection through better-sqlite3 is CodeQL-only. CodeQL models better-sqlite3.
+- ARVE's JS command-injection rule matches a bare `exec(...)` call, i.e. one
+  imported with `import { exec } from "child_process"`, not `child_process.exec(...)`.
 - An `arve-codeql` image built from a Windows checkout has a CRLF wrapper.
   `verify_plants.py` strips the CRs at run time.
