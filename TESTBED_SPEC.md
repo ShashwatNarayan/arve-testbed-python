@@ -123,5 +123,16 @@ copies to `baselines/`.
   SQL injection through better-sqlite3 is CodeQL-only. CodeQL models better-sqlite3.
 - ARVE's JS command-injection rule matches a bare `exec(...)` call, i.e. one
   imported with `import { exec } from "child_process"`, not `child_process.exec(...)`.
+- ARVE rulepack gap (PHP): the `sql-injection`, `command-injection` and
+  `path-traversal` rules need a string literal as the left operand of a single
+  concatenation, `f("..." . $X)`. A three-part concatenation (`"a" . $x . "b"`), a
+  constant or `__DIR__` prefix, or an argument built in a variable is not matched.
+  Plants use the exact two-operand shape.
+- Known ARVE false positive (PHP): the same rules accept any `$X`, so
+  `shell_exec("cmd " . escapeshellarg($x))` and
+  `file_get_contents("dir/" . basename($x))` are reported. Controls bind the
+  argument to a variable first.
+- CodeQL has no PHP extractor. The PHP testbed sets `engine_expectations.codeql`
+  to `skipped`; the correct ARVE outcome is a `COMPLETED` scan with CodeQL skipped.
 - An `arve-codeql` image built from a Windows checkout has a CRLF wrapper.
   `verify_plants.py` strips the CRs at run time.
