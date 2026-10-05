@@ -40,9 +40,9 @@ real ARVE Semgrep rule ID or a CodeQL `security-extended` query ID.
 Put a comment holding the ID **only** on the line directly above each plant. Use
 the file's own comment syntax:
 
-    # TESTBED SAST-03          (Python, YAML, requirements.txt, PEM preamble)
+    # TESTBED SAST-03          (Python, YAML, .properties, requirements.txt, PEM preamble)
     // TESTBED SAST-03         (JS/TS/Java/PHP)
-    <!-- TESTBED SEC-06 -->    (Markdown)
+    <!-- TESTBED SEC-06 -->    (Markdown, XML: pom.xml)
 
 The plant is the first non-blank line after the marker. Files that cannot hold a
 comment (JSON: `package.json`, `package-lock.json`, `composer.lock`) take no marker;
@@ -68,7 +68,7 @@ Each finding:
 |---|---|
 | `id`, `kind` | ID; `positive` or `negative` |
 | `finding_type` | `sast` \| `secret` \| `dependency` \| `control` |
-| `expected_engines` | engines that must report it (empty for controls) |
+| `expected_engines` | engines that must report it (empty for controls, and for a known miss: a plant no engine can report under ARVE's current setup, explained in `notes`) |
 | `rule_ids` | `{engine: id or [ids]}`. Each listed ID must be observed. Use what the scanner **actually** reports, not what was expected. For OSV, this is the full advisory ID list. |
 | `semgrep_profile` | lowest ARVE profile with the rule (`ci` ⊂ `standard` ⊂ `extended`) |
 | `cwe` | primary CWE |
@@ -136,3 +136,26 @@ copies to `baselines/`.
   to `skipped`; the correct ARVE outcome is a `COMPLETED` scan with CodeQL skipped.
 - An `arve-codeql` image built from a Windows checkout has a CRLF wrapper.
   `verify_plants.py` strips the CRs at run time.
+- ARVE sandbox gap (Java): the CodeQL wrapper extracts Java with `--build-mode=none`,
+  the image has no Maven and the sandbox has no network, so dependency jars are never
+  resolved. Spring types stay unknown and `@RequestParam` / `@RequestBody` are not
+  taint sources: every taint query (SQL injection, command injection, path injection,
+  SSRF, unsafe deserialization, XSS) is silent. Only queries that need the JDK alone
+  fire (`java/insecure-trustmanager`, `java/weak-cryptographic-algorithm`,
+  `java/relative-path-command`). The Java testbed still plants the taint flaws and
+  records them as known misses with empty `expected_engines`. They become expected
+  once ARVE resolves Java dependencies offline. With network access the same image
+  reports all of them.
+- CodeQL false positives (Java, seen only with dependencies resolved):
+  `java/command-line-injection` reports any request string passed to `ProcessBuilder`,
+  including an argument list with no shell, and `java/unsafe-deserialization` reports
+  `ObjectInputStream.readObject` even behind an `ObjectInputFilter` allowlist.
+  Controls use a numeric argument and a non-serialization format instead.
+- `java/relative-path-command` reports a command named without a path (`"sh"`).
+  Plants and controls use absolute paths.
+- Maven Central answers osv-scanner's Go HTTP client with `429` after a handful of
+  requests (`Retry-After` of about 28 minutes). A `pom.xml` with a parent POM or an
+  imported BOM then fails to resolve, and osv-scanner exits 128 with "No package
+  sources found": zero findings, not an error ARVE can tell from a clean repo. A
+  parent-less `pom.xml` with explicit versions resolves through deps.dev alone and
+  is not affected, so the Java testbed uses no Spring Boot parent.

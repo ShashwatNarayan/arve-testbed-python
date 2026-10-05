@@ -68,7 +68,9 @@ def find_markers():
 
 def engines_cell(entry):
     engines = entry.get("expected_engines") or []
-    return ", ".join(engines) if engines else "none (negative control)"
+    if engines:
+        return ", ".join(engines)
+    return "none (negative control)" if entry["kind"] == "negative" else "none (known miss)"
 
 
 def rules_cell(entry):
