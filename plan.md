@@ -449,9 +449,15 @@ registry rules are different and would make the baseline meaningless.
 | 3 | `ShashwatNarayan/arve-testbed-php` |
 | 4 | `ShashwatNarayan/arve-testbed-java` |
 
-- Create **private**: `gh repo create ShashwatNarayan/arve-testbed-<lang> --private --source . --push`.
-  Public repos get GitHub push protection by default, which will block the
-  push on correctly-shaped synthetic keys.
+- The testbeds are **public by design**, so the team and ARVE's GitHub App can
+  reach them without per-repo access grants. Every credential in them is
+  synthetic. Each repo was created private for its first push
+  (`gh repo create ShashwatNarayan/arve-testbed-<lang> --private --source . --push`)
+  and made public afterwards; this supersedes the "(private)" wording in the
+  §11 prompts.
+- Public repos get GitHub push protection by default, which can block a push
+  that adds a correctly-shaped synthetic key. If that happens, stop and report
+  it. Never bypass or allowlist the block without explicit approval.
 - Turn off Dependabot alerts/PRs on all four — vulnerable deps are the point, and
   an auto-merged Dependabot PR would silently destroy a `DEP-*` plant.
 - Give ARVE's GitHub App access to all four so the team can scan them from ARVE.
